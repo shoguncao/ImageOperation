@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:ImageOperationDemo/ImageOperationDemo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ImageOperation/ImageOperation.xcodeproj">
+   </FileRef>
+</Workspace>
