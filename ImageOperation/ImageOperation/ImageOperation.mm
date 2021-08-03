@@ -21,10 +21,10 @@ NSImage *ImageOperation::removeHighPixel(NSImage *img, uint8_t highestPixel, uin
     //4、根据图片数据源绘制上下文
     CGContextDrawImage(contextRef, CGRectMake(0, 0, width, height), imageRef);
     //5、将彩色图片像素点重新设置颜色
-    for (int y=0; y<height; y++) {
-        for (int x=0; x<width; x++) {
+    for (int y = 0; y < height; y ++) {
+        for (int x = 0; x < width; x ++) {
             //操作像素点
-            uint8_t *rgbPiexl = (uint8_t *)&imagePiexl[y*width+x];
+            uint8_t *rgbPiexl = (uint8_t *)&imagePiexl[y*width + x];
             if ((rgbPiexl[0] + rgbPiexl[1] + rgbPiexl[2])/3.0 >= highestPixel) {
                 rgbPiexl[0] = defaultPixel;
                 rgbPiexl[1] = defaultPixel;
