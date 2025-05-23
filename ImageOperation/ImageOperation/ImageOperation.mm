@@ -6,7 +6,7 @@ ImageOperation::ImageOperation() {
     
 }
 
-NSImage *ImageOperation::removeHighPixel(NSImage *img, uint8_t highestPixel, uint8_t defaultPixel) {
+NSImage *ImageOperation::removeHighPixel(NSImage *img, uint8_t highestPixel, uint8_t defaultPixel, uint8_t alpha) {
     CGImageSourceRef source = CGImageSourceCreateWithData((CFDataRef)[img TIFFRepresentation], NULL);
     CGImageRef imageRef =  CGImageSourceCreateImageAtIndex(source, 0, NULL);
     
@@ -17,7 +17,7 @@ NSImage *ImageOperation::removeHighPixel(NSImage *img, uint8_t highestPixel, uin
     CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
     //3、根据像素点个数创建一个所需要的空间
     UInt32 *imagePiexl = (UInt32 *)calloc(width*height, sizeof(UInt32));
-    CGContextRef contextRef = CGBitmapContextCreate(imagePiexl, width, height, 8, 4*width, colorSpaceRef, kCGImageAlphaNoneSkipLast);
+    CGContextRef contextRef = CGBitmapContextCreate(imagePiexl, width, height, 8, 4*width, colorSpaceRef, kCGImageAlphaPremultipliedLast);
     //4、根据图片数据源绘制上下文
     CGContextDrawImage(contextRef, CGRectMake(0, 0, width, height), imageRef);
     //5、将彩色图片像素点重新设置颜色
@@ -29,6 +29,7 @@ NSImage *ImageOperation::removeHighPixel(NSImage *img, uint8_t highestPixel, uin
                 rgbPiexl[0] = defaultPixel;
                 rgbPiexl[1] = defaultPixel;
                 rgbPiexl[2] = defaultPixel;
+                rgbPiexl[3] = alpha;
             }
         }
     }
